@@ -47,7 +47,7 @@ public class MyArrayList<E> {
 	 * @return
 	 */
 	public E get(int index) {
-        return null;    // replace this line with the correct code.
+        return elements[index];    // replace this line with the correct code.
 	}
 	
 	/**
@@ -60,6 +60,10 @@ public class MyArrayList<E> {
 	 * @param elem
 	 */
 	public void add(E elem) {
+        if (elements.length == currentSize) {
+            expandSize();
+        }
+        elements[currentSize++] = elem;
 	}
 
 	/**
@@ -74,7 +78,15 @@ public class MyArrayList<E> {
 	 * @param elem
 	 */
 	public void add(int index, E elem) {
-	}
+        if (elements.length == currentSize) {
+            expandSize();
+        }
+        for (int i = elements.length - 1; i > index; i--) {
+            elements[i] = elements[i-1];
+        }
+        elements[index] = elem;
+        currentSize++;
+    }
 	
 	/**
 	 * Doubles the size of the array, copies the old elements
@@ -85,6 +97,11 @@ public class MyArrayList<E> {
      * Hint: use newArrayOfE!
 	 */
 	private void expandSize() {
+        E [] elements2 = newArrayOfE(elements.length*2);
+        for (int l = 0; l < elements.length; l++) {
+            elements2[l] = elements[l];
+        }
+        elements = elements2;
 	}
 	
 	/**
